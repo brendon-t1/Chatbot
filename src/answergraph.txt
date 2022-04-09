@@ -6,7 +6,7 @@
 
 <TYPE:NODE><ID:2><ANSWER:When instantiating variables, programmers can choose wether to do this on the heap, on the stack or in static memory. Do you want to know more about those two concepts? Simply ask me about 'heap', 'stack' or 'static'.>
 
-<TYPE:NODE><ID:3><ANSWER:A smart pointer is an object that behaves like a pointer, i.e. it must support pointer operations such as dereferencing or indirect access. In addition to these properties, the smart pointer handles resources better. In concrete terms, this means that it takes care not to cause a memory leak. A smart pointer exists in various flavors, which are unique_ptr, shared_ptr and weak_ptr. There are no more topics in this section, starting over!>
+<TYPE:NODE><ID:3><ANSWER:A smart pointer is an object that behaves like a pointer, i.e. it must support pointer operations such as dereferencing or indirect access. In addition to these properties, the smart pointer handles resources better. In concrete terms, this means that it takes care not to cause a memory leak. A smart pointer exists in various flavors, which are unique_ptr, shared_ptr and weak_ptr. Ask me more about smart pointer. Would you like to learn about unique, shared or weak pointers?>
 
 <TYPE:NODE><ID:4><ANSWER:The value nullptr can be assigned to pointers of any type. This turns the pointer into a null pointer that does not point to a memory location. The nullptr keyword can be used to test if a pointer or handle reference is null before the reference is used. There are no more topics in this section, starting over!>
 
@@ -14,7 +14,17 @@
 
 <TYPE:NODE><ID:6><ANSWER:Heap memory, also known as dynamic memory, is an alternative to local stack memory. Local memory is allocated automatically on function call and it is deallocated automatically when a function exits. Heap memory is different. The programmer explicitly requests the allocation of a memory block of a particular size, and the block continues to be allocated until the programmer explicitly requests that it be deallocated. -- There are no more topics in this section, starting over!>
 
-<TYPE:NODE><ID:7><ANSWER:Static memory persists throughout the entire life of the program, and is usually used to store things like global variables, or variables created with the static clause. -- There are no more topics in this section, starting over!>
+<TYPE:NODE><ID:7><ANSWER:Static memory persists throughout the entire life of the program, and is usually used to store things like global variables, or variables created with the static clause. Would you like to learn about the two types of static memory 'BSS' and 'Data'?>
+
+<TYPE:NODE><ID:8><ANSWER:BSS stands for Block Started by Symbol. It is used by the compiler and linked to store global and static variables that are initialized with a '0' value. -- There are no more topics in this section, starting over!>
+
+<TYPE:NODE><ID:8><ANSWER:Data is used by the compiler and linker to store global and static variables that are initialized with values other than '0'. -- There are no more topics in this section, starting over!>
+
+<TYPE:NODE><ID:9><ANSWER:A unique pointer exclusively owns a resource. -- There are no more topics in this section, starting over!>
+
+<TYPE:NODE><ID:10><ANSWER:A shared pointer points to a resource, but does not own it exclusively. It keeps an internal count of how many shared points there are to the same resource. When that count hits zero the resource will be deallocated. -- There are no more topics in this section, starting over!>
+
+<TYPE:NODE><ID:11><ANSWER:A weak pointer is similar to a shared pointer, except there is no count kept on the weak pointer. -- There are no more topics in this section, starting over!>
 
 
 // connect nodes with edges
@@ -27,3 +37,10 @@
 <TYPE:EDGE><ID:4><PARENT:2><CHILD:5><KEYWORD:stack><KEYWORD:stack memory><KEYWORD:local variable storage>
 <TYPE:EDGE><ID:5><PARENT:2><CHILD:6><KEYWORD:heap><KEYWORD:heap memory><KEYWORD:dynamic storage>
 <TYPE:EDGE><ID:6><PARENT:2><CHILD:7><KEYWORD:static><KEYWORD:static memory><KEYWORD:global variable storage>
+
+<TYPE:EDGE><ID:7><PARENT:7><CHILD:8><KEYWORD:BSS><KEYWORD:block started by symbol><KEYWORD:bss>
+<TYPE:EDGE><ID:8><PARENT:7><CHILD:9><KEYWORD:Data><KEYWORD:data memory><KEYWORD:data>
+
+<TYPE:EDGE><ID:9><PARENT:3><CHILD:9><KEYWORD:unique><KEYWORD:unique pointer><KEYWORD:unique_ptr>
+<TYPE:EDGE><ID:10><PARENT:3><CHILD:10><KEYWORD:shared><KEYWORD:shared pointer><KEYWORD:shared_ptr>
+<TYPE:EDGE><ID:11><PARENT:3><CHILD:11><KEYWORD:weak><KEYWORD:weak pointer><KEYWORD:weak_ptr>
