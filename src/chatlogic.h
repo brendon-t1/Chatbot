@@ -9,6 +9,8 @@
 class ChatBot;
 class GraphEdge;
 class GraphNode;
+//made graph nodes a unique ptr vector
+
 
 class ChatLogic
 {
@@ -18,7 +20,7 @@ private:
 
     // data handles (owned)
     std::vector<std::unique_ptr<GraphNode>> _nodes;
-    std::vector<GraphEdge *> _edges;//chatlogic needs to own this instead
+    std::vector<GraphEdge *> _edges;
 
     ////
     //// EOF STUDENT CODE
