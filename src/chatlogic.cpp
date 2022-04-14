@@ -11,20 +11,11 @@
 #include "chatbot.h"
 #include "chatlogic.h"
 
-//removed nodes destruction in ~chatlogic
-
-
 ChatLogic::ChatLogic()
 {
     //// STUDENT CODE
     ////
-
-    // create instance of chatbot
-   // _chatBot = new ChatBot("../images/chatbot.png");
-
-    // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    //_chatBot->SetChatLogicHandle(this);
-
+    //removed all
     ////
     //// EOF STUDENT CODE
 }
@@ -33,22 +24,7 @@ ChatLogic::~ChatLogic()
 {
     //// STUDENT CODE
     ////
-
-    // delete chatbot instance
-   // delete _chatBot;
-
-    // delete all nodes
-//     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
-//     {
-//         delete *it;
-//     }
-
-    // delete all edges
-//     for (auto it = std::begin(_edges); it != std::end(_edges); ++it)
-//     {
-//         delete *it;
-//     }
-
+    //removed all
     ////
     //// EOF STUDENT CODE
 }
@@ -56,73 +32,60 @@ ChatLogic::~ChatLogic()
 template <typename T>
 void ChatLogic::AddAllTokensToElement(std::string tokenID, tokenlist &tokens, T &element)
 {
-    // find all occurences for current node
     auto token = tokens.begin();
     while (true)
     {
         token = std::find_if(token, tokens.end(), [&tokenID](const std::pair<std::string, std::string> &pair) { return pair.first == tokenID;; });
         if (token != tokens.end())
         {
-            element.AddToken(token->second); // add new keyword to edge
-            token++;                         // increment iterator to next element
+            element.AddToken(token->second);
+            token++;
         }
         else
         {
-            break; // quit infinite while-loop
+            break;
         }
     }
 }
 
 void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 {
-    // load file with answer graph elements
     std::ifstream file(filename);
 
-    // check for file availability and process it line by line
     if (file)
     {
-        // loop over all lines in the file
         std::string lineStr;
         while (getline(file, lineStr))
         {
-            // extract all tokens from current line
             tokenlist tokens;
             while (lineStr.size() > 0)
             {
-                // extract next token
                 int posTokenFront = lineStr.find("<");
                 int posTokenBack = lineStr.find(">");
                 if (posTokenFront < 0 || posTokenBack < 0)
-                    break; // quit loop if no complete token has been found
+                    break;
                 std::string tokenStr = lineStr.substr(posTokenFront + 1, posTokenBack - 1);
 
-                // extract token type and info
                 int posTokenInfo = tokenStr.find(":");
                 if (posTokenInfo != std::string::npos)
                 {
                     std::string tokenType = tokenStr.substr(0, posTokenInfo);
                     std::string tokenInfo = tokenStr.substr(posTokenInfo + 1, tokenStr.size() - 1);
 
-                    // add token to vector
                     tokens.push_back(std::make_pair(tokenType, tokenInfo));
                 }
 
-                // remove token from current line
                 lineStr = lineStr.substr(posTokenBack + 1, lineStr.size());
             }
 
-            // process tokens for current line
             auto type = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "TYPE"; });
             if (type != tokens.end())
             {
-                // check for id
                 auto idToken = std::find_if(tokens.begin(), tokens.end(), [](const std::pair<std::string, std::string> &pair) { return pair.first == "ID"; });
                 if (idToken != tokens.end())
                 {
-                    // extract id from token
                     int id = std::stoi(idToken->second);
 
-                    // node-based processing
                     if (type->second == "NODE")
                     {
                         //// STUDENT CODE
@@ -163,11 +126,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
                             // create new edge
                             std::unique_ptr<GraphEdge> edge = std::make_unique<GraphEdge>(id);
-//                             edge->SetChildNode(*childNode);
-//                             edge->SetParentNode(*parentNode);
-                            edge->SetChildNode((*childNode).get());
-                            edge->SetParentNode((*parentNode).get());
-                           // _edges.push_back(edge);
+                            edge->SetChildNode((*childNode).get());//raw pointer
+                            edge->SetParentNode((*parentNode).get());//raw pointer
 
                             // find all keywords for current node
                             AddAllTokensToElement("KEYWORD", tokens, *edge);
@@ -186,11 +146,11 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                     std::cout << "Error: ID missing. Line is ignored!" << std::endl;
                 }
             }
-        } // eof loop over all lines in the file
+        }
 
         file.close();
 
-    } // eof check for file availability
+    } 
     else
     {
         std::cout << "File could not be opened!" << std::endl;
@@ -226,8 +186,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     chatBot.SetRootNode(rootNode);
     rootNode->MoveChatbotHere(std::move(chatBot));//moving chatbot
   
-  
-    
     ////
     //// EOF STUDENT CODE
 }
