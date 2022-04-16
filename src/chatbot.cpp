@@ -54,9 +54,11 @@ ChatBot&ChatBot::operator=(const ChatBot &source)
 {
   	if(this == &source) return *this;
   
+  	_image = new wxBitmap();
   	*_image = *source._image;
  	_rootNode = source._rootNode;
   	_chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
   	std::cout << "Chatbot Copy Assignment Operator" << std::endl;
   	return *this; 
 }
